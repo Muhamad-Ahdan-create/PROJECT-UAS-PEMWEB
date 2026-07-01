@@ -5,7 +5,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Login — Koperasi Sekolah</title>
+    <title>Login — Koperasi Anureksa</title>
     @vite(['resources/css/app.css', 'resources/js/app.js'])
 </head>
 
@@ -19,7 +19,7 @@
            <div class="text-center mb-4">
                 <img src="{{ asset('image assets/Logo.png') }}" alt="KP-RI Anureksa Kuningan"
                     style="width: 90px; height: 90px; object-fit: contain;" class="mb-3">
-                <h4 class="fw-bold mb-0">Koperasi Sekolah</h4>
+                <h4 class="fw-bold mb-0">Koperasi Anureksa</h4>
                 <p class="text-muted small">Masuk ke akun Anda</p>
             </div>
 

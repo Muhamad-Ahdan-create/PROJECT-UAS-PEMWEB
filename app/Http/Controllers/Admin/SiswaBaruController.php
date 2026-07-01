@@ -109,27 +109,31 @@ class SiswaBaruController extends Controller
         return view('admin.siswa-baru.show', compact('siswaBaru'));
     }
 
-    public function destroy(SiswaBaru $siswaBaru)
-    {
-        return DB::transaction(function () use ($siswaBaru) {
-            // Jalankan logic pembatalan tagihan jika ada untuk mengembalikan stok seragam ke sistem
-            if ($siswaBaru->pembayaran) {
-                $this->service->batalTagihan($siswaBaru->pembayaran);
-            }
+   public function destroy(SiswaBaru $siswaBaru)
+{
+    // Cek apakah siswa punya tagihan yang sudah dibayar
+    $pembayaran = $siswaBaru->pembayaran;
 
-            // Ambil user object sebelum data siswa dihapus
-            $user = $siswaBaru->user;
+    if ($pembayaran && in_array($pembayaran->status, ['menunggu_validasi', 'lunas', 'tervalidasi'])) {
+        return redirect()->route('admin.siswa-baru.index')
+            ->with('error', 'Siswa ini tidak dapat dihapus karena sudah melakukan pembayaran seragam (status: ' . ucfirst(str_replace('_', ' ', $pembayaran->status)) . '). Validasi pembayaran terlebih dahulu.');
+    }
 
-            // Hapus profile siswa baru
-            $siswaBaru->delete();
-
-            // Hapus user login-nya
-            if ($user) {
-                $user->delete();
-            }
-
+    // Kalau belum bayar, batalkan tagihan dulu (kembalikan stok)
+    if ($pembayaran && $pembayaran->status === 'belum') {
+        try {
+            app(SeragamService::class)->batalTagihan($pembayaran);
+        } catch (\Exception $e) {
             return redirect()->route('admin.siswa-baru.index')
-                ->with('success', 'Data siswa dan akun pengguna berhasil dihapus dari sistem.');
-        });
+                ->with('error', $e->getMessage());
+        }
+    }
+
+    // Hapus user terkait (cascade ke siswa_baru)
+    $siswaBaru->user->delete();
+
+    return redirect()->route('admin.siswa-baru.index')
+        ->with('success', 'Data siswa berhasil dihapus.');
+
     }
 }
