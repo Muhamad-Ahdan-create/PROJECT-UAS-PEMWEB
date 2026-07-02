@@ -1,0 +1,169 @@
+/* @tailwind base;
+@tailwind components;
+@tailwind utilities; */
+@import 'bootstrap/dist/css/bootstrap.min.css';
+@import 'bootstrap-icons/font/bootstrap-icons.css';
+
+:root {
+    --kop-primary: #1a56db;
+    --kop-sidebar: #1e3a5f;
+    --kop-accent: #0ea5e9;
+    --kop-success: #16a34a;
+    --kop-warning: #d97706;
+    --kop-danger: #dc2626;
+}
+
+/* Sidebar */
+.sidebar {
+    width: 240px;
+    min-height: 100vh;
+    background: var(--kop-sidebar);
+    position: fixed;
+    top: 0;
+    left: 0;
+    display: flex;
+    flex-direction: column;
+    z-index: 100;
+}
+
+.sidebar-brand {
+    padding: 1.2rem 1.5rem;
+    font-size: 1.05rem;
+    font-weight: 700;
+    color: #fff;
+    border-bottom: 1px solid rgba(255, 255, 255, .12);
+    letter-spacing: .02em;
+}
+
+.sidebar .nav-link {
+    color: rgba(255, 255, 255, .75);
+    padding: .55rem 1.5rem;
+    font-size: .875rem;
+    border-radius: 0;
+    transition: background .15s, color .15s;
+    display: flex;
+    align-items: center;
+    gap: .55rem;
+}
+
+.sidebar .nav-link:hover,
+.sidebar .nav-link.active {
+    background: rgba(255, 255, 255, .12);
+    color: #fff;
+}
+
+.sidebar .nav-link i {
+    font-size: 1rem;
+}
+
+/* Main wrapper */
+.main-wrapper {
+    margin-left: 240px;
+    min-height: 100vh;
+    background: #f1f5f9;
+}
+
+.topbar {
+    background: #fff;
+    border-bottom: 1px solid #e2e8f0;
+    padding: .75rem 1.5rem;
+    position: sticky;
+    top: 0;
+    z-index: 99;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.page-content {
+    padding: 1.75rem;
+}
+
+/* Kartu statistik */
+.stat-card {
+    border: none;
+    border-radius: 12px;
+    padding: 1.25rem 1.5rem;
+    color: #fff;
+    position: relative;
+    overflow: hidden;
+}
+
+.stat-card .icon {
+    font-size: 2.5rem;
+    opacity: .25;
+    position: absolute;
+    right: 1rem;
+    top: 50%;
+    transform: translateY(-50%);
+}
+
+.stat-card .value {
+    font-size: 1.75rem;
+    font-weight: 700;
+}
+
+.stat-card .label {
+    font-size: .78rem;
+    opacity: .85;
+}
+
+/* Tabel */
+.table thead th {
+    background: #f8fafc;
+    font-size: .78rem;
+    text-transform: uppercase;
+    letter-spacing: .04em;
+    color: #64748b;
+    border-bottom: 2px solid #e2e8f0;
+    font-weight: 600;
+}
+
+.table td {
+    font-size: .875rem;
+    vertical-align: middle;
+}
+
+/* Badge status */
+.badge-status {
+    font-size: .72rem;
+    padding: .3em .7em;
+    border-radius: 99px;
+    font-weight: 500;
+}
+
+/* Card */
+.card {
+    border: 1px solid #e2e8f0;
+    border-radius: 12px;
+}
+
+.card-header {
+    background: #fff;
+    border-bottom: 1px solid #e2e8f0;
+    font-weight: 600;
+}
+
+/* Sidebar toggle mobile */
+@media (max-width: 991px) {
+    .sidebar {
+        transform: translateX(-100%);
+        transition: transform .25s;
+    }
+
+    .sidebar.show {
+        transform: translateX(0);
+    }
+
+    .main-wrapper {
+        margin-left: 0;
+    }
+}
+
+/* Toast */
+.toast-container {
+    position: fixed;
+    bottom: 1.5rem;
+    right: 1.5rem;
+    z-index: 9999;
+}
